@@ -11,6 +11,7 @@ from geometry_msgs.msg import Vector3Stamped
 from protocol_lib.myserial import AsyncSerial_t
 from protocol_lib.get_log_shootdata_local import DataSimulator
 from rclpy.time import Time
+from geometry_msgs.msg import Vector3Stamped
 import struct
 
 
@@ -18,22 +19,14 @@ class Communicate_t(Node):
     def __init__(self):
         super().__init__('communicate_t')
         self.declare_parameter('cmd_vel_topic', '/cmd_vel')
-        self.declare_parameter('serial_port', '/dev/serial_sick')
+        self.declare_parameter('serial_port', '/dev/ttyACM0')
         self.declare_parameter('serial_baudrate', 115200)
-        port = self.get_parameter('serial_port').value
-        baud = self.get_parameter('serial_baudrate').value
         self.sub=self.create_subscription(Twist,
         self.get_parameter('cmd_vel_topic').value,
         self.cmd_topic_callback,10)
-
-        self.serial=AsyncSerial_t(self.get_parameter("serial_port").value,self.get_parameter("serial_baudrate").value)
-
-        self.serial.startListening(self.data_callback)
-        self.serial = AsyncSerial_t(port, baud)
-        self.serial.startListening(self.data_callback)
         self.publisher = self.create_publisher(Vector3Stamped, 'odom', 10)
-        self.get_logger().info(f"串口监听已启动: {port} @ {baud}bps")
-
+        self.serial=AsyncSerial_t(self.get_parameter("serial_port").value,self.get_parameter("serial_baudrate").value)
+        self.serial.startListening(self.data_callback)
         # 初始化串口通信
     def cmd_topic_callback(self,velCmd:Twist):
         """cmd_vel话题回调函数"""
