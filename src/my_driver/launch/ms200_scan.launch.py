@@ -27,7 +27,7 @@ def generate_launch_description():
       output='screen',
       parameters=[
         {'device_model': 'MS200'},
-        {'frame_id': 'laser_frame'},
+        {'frame_id': 'base_link'},
         {'scan_topic': 'MS200/scan'},
         {'port_name': '/dev/ms200'},
         {'baudrate': 230400},
