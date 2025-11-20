@@ -203,7 +203,7 @@ class fusion_node_t(Node):
         # print(f'{self.base_to_laser.value[1]}')
         # print(f'{self.r}')
         # print(f'{self.slam_x}  ({self.slam_y})')
-        print(f'{self.base_link_x} ({self.base_link_y})')
+        # print(f'{self.base_link_x} ({self.base_link_y})')
         # print(f'{self.base_link_y}')
         # print(f'123{self.r},{self.laser_angle}')
         x_diff= self.base_link_x-(self.odom_x*math.cos(dyaw)-self.odom_y*math.sin(dyaw)) 

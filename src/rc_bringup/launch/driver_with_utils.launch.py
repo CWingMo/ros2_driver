@@ -109,7 +109,7 @@ def generate_launch_description():
     )
     fusion_node=Node(
         package='perception',
-        executable='slam_riqiang.py',
+        executable='slam.py',
         name='fusion_node',
         output='screen',
         emulate_tty=True,
@@ -119,15 +119,15 @@ def generate_launch_description():
             {'slam_debug': False},  # 是否开启slam调试
         ])
     # ld.add_action(compose_node)
-    # ld.add_action(fusion_node)
+    ld.add_action(fusion_node)
     ld.add_action(mid360_launch)
     # ld.add_action(imu_transform_launch)
     ld.add_action(utils_launch)
     ld.add_action(joy_launch)
     # ld.add_action(communicate_node)
     ld.add_action(test_car_node)
-    # ld.add_action(ms200_launch)
-    ld.add_action(ros_bag_action)
+    ld.add_action(ms200_launch)
+    # ld.add_action(ros_bag_action)
     ld.add_action(fuck_slam_node)
     return ld
      
